@@ -15,11 +15,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.amber
       ),
-      home:const HomePage(),
       routes: {
-        '/':(context) => HomePage(),
-        
+        '/':(context) =>const HomePage(),
       },
+      initialRoute: '/',
     );
   }
 }

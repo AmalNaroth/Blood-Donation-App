@@ -14,6 +14,13 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text("Blood donate app"),
       ),
+      body: Container(),
+      floatingActionButton: FloatingActionButton(onPressed: (){
+
+      },backgroundColor: Colors.black,
+      child:const Icon(Icons.add,color: Colors.white,),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
