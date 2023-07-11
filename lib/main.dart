@@ -1,3 +1,4 @@
+import 'package:blooddonationapp/adddetatils.dart';
 import 'package:blooddonationapp/home.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/':(context) =>const HomePage(),
+        '/addUserDetails':(context)=> AddDetatils(),
       },
       initialRoute: '/',
     );

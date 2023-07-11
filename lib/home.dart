@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Container(),
       floatingActionButton: FloatingActionButton(onPressed: (){
-
+        Navigator.pushNamed(context, "/addUserDetails");
       },backgroundColor: Colors.black,
       child:const Icon(Icons.add,color: Colors.white,),
       ),
