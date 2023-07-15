@@ -1,39 +1,43 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class AddDetatils extends StatelessWidget {
-   AddDetatils({super.key});
-
-   final TextEditingController donorName=TextEditingController();
-   final TextEditingController donorphone=TextEditingController();
-   String? selectedGroup;
+class UpdateDetails extends StatelessWidget {
+   UpdateDetails({super.key});
 
   final boolGroup=["A-","A+","B-","B+","O","O-","AB+","AB-"];
 
-  final CollectionReference donor=FirebaseFirestore.instance.collection("doner");
+   TextEditingController donorName=TextEditingController();
+    TextEditingController donorphone=TextEditingController();
+   String? selectedGroup;
 
-  void addfirebase(){
+   final CollectionReference donor=FirebaseFirestore.instance.collection("doner");
+
+   void detatilsupdate(donorid){
     final data={
       "name" : donorName.text,
       "phone" : int.parse(donorphone.text),
-      "group" : selectedGroup,
+      "group" : selectedGroup
     };
-    donor.add(data);
-  }
+    donor.doc(donorid).update(data);
+    }
+
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: AppBar(
-        title: Text("Add Doners"),
-      ),
+    final args=ModalRoute.of(context)!.settings.arguments as Map;
+    donorName.text=args['name'];
+    donorphone.text=args['phone'].toString();
+    selectedGroup=args['group'];
+    final donorid=args['id'];
+    return Scaffold(
+      appBar: AppBar(title: Text("Update Details"),),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
             SizedBox(height: 20,),
             TextFormField(
-              controller: donorName,
+             controller: donorName,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 label: Text("Donar Name"),
@@ -52,6 +56,7 @@ class AddDetatils extends StatelessWidget {
               maxLength: 3,
             ),
             DropdownButtonFormField(
+              value: selectedGroup,
               decoration: InputDecoration(
                 label: Text("Select Blood Group")
               ),
@@ -66,12 +71,12 @@ class AddDetatils extends StatelessWidget {
                backgroundColor: MaterialStatePropertyAll(Colors.red)
               ),
               onPressed: (){
-                addfirebase();
+                Navigator.pop(context);
+                detatilsupdate(donorid);
                 donorName.clear();
                 donorphone.clear();
                 boolGroup.clear();
-                Navigator.pushNamed(context, '/');
-              }, child: Text("Submit"))
+              }, child: Text("Update"))
           ],
         ),
       ),
